@@ -98,17 +98,13 @@ async def on_voice_state_update(before, after):
             if before.voice.voice_channel.id == bot.voice_client_in(before.server).channel.id: # user left the voice channel detected
                 if len(bot.voice_client_in(before.server).channel.voice_members) <= 1: #there is only bot in voice channel
                     if player_status[before.server.id]==True:
-                        servers_songs[before.server.id].pause()
-                        paused[before.server.id]=True
-                        await asyncio.sleep(10)
-                        if len(bot.voice_client_in(before.server).channel.voice_members) <= 1:
-                            await bot.voice_client_in(before.server).disconnect()
-                            servers_songs[before.server.id]=None
-                            player_status[before.server.id]=False
-                            paused[before.server.id]=False
-                            now_playing[before.server.id]=None
-                            song_names[before.server.id].clear()
-                            await bot.send_message(discord.Object(id=rq_channel[before.server.id]),"**MubbyTheBot left because there was no one inside `{}`**".format(before.voice.voice_channel))
+                        await bot.voice_client_in(before.server).disconnect()
+                        servers_songs[before.server.id]=None
+                        player_status[before.server.id]=False
+                        paused[before.server.id]=False
+                        now_playing[before.server.id]=None
+                        song_names[before.server.id].clear()
+                        await bot.send_message(discord.Object(id=rq_channel[before.server.id]),"**MubbyTheBot left because there was no one inside `{}`**".format(before.voice.voice_channel))
 
 
 
