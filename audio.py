@@ -170,6 +170,9 @@ async def play(con, *, url):
         rq_channel[con.message.server.id]=con.message.channel.id
         if bot.is_voice_connected(con.message.server) == False:
             await bot.join_voice_channel(con.message.author.voice.voice_channel)
+            if voice_status == False and channel == None:  # VOICE NOT CONNECTED
+                if con.message.author.voice_channel == None:
+                   await bot.send_message(con.message.channel,"**You must be in a voice channel**")
 
         if bot.is_voice_connected(con.message.server) == True:
             if player_status[con.message.server.id] == True:
@@ -243,7 +246,7 @@ async def join(con,*,channel=None):
 
 
 @bot.command(pass_context=True)
-async def leave(con):
+async def stop(con):
     """LEAVE THE VOICE CHANNEL AND STOP ALL SONGS AND CLEAR QUEUE"""
     # COMMAND USED IN DM
     if con.message.channel.is_private == True:
@@ -259,6 +262,7 @@ async def leave(con):
         # VOICE ALREADY CONNECTED
         if bot.is_voice_connected(con.message.server) == True:
             bot.loop.create_task(queue_songs(con, False, True))
+            await bot.send_message(con.message.channel, "**Mubby sends his regards**")
 
 @bot.command(pass_context=True)
 async def pause(con):
