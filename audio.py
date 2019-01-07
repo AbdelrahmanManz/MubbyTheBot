@@ -163,6 +163,9 @@ async def after_song(con, skip, clear):
 @bot.command(pass_context=True)
 async def play(con, *, url):
     """PLAY THE GIVEN SONG AND QUEUE IT IF THERE IS CURRENTLY SOGN PLAYING"""
+    if voice_status == False and channel == None:  # VOICE NOT CONNECTED
+        if con.message.author.voice_channel == None:
+            await bot.send_message(con.message.channel,"**You must be in a voice channel**")
     if con.message.channel.is_private == True:
         await bot.send_message(con.message.channel, "**You must be in a `server text channel` to use this command**")
 
@@ -170,10 +173,7 @@ async def play(con, *, url):
         rq_channel[con.message.server.id]=con.message.channel.id
         if bot.is_voice_connected(con.message.server) == False:
             await bot.join_voice_channel(con.message.author.voice.voice_channel)
-            if voice_status == False and channel == None:  # VOICE NOT CONNECTED
-                if con.message.author.voice_channel == None:
-                   await bot.send_message(con.message.channel,"**You must be in a voice channel**")
-
+            
         if bot.is_voice_connected(con.message.server) == True:
             if player_status[con.message.server.id] == True:
                 song_names[con.message.server.id].append(url)
