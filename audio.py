@@ -21,7 +21,7 @@ def get_prefix(bot, msg):
     return commands.when_mentioned_or(*prefixes)(bot, msg)
 
 
-bot = commands.Bot(command_prefix=get_prefix,description='A music bot fro discord Kurusaki')
+bot = commands.Bot(command_prefix=get_prefix,description='A music bot for discord')
 
 bot.remove_command('help')
 
@@ -108,7 +108,7 @@ async def on_voice_state_update(before, after):
                             paused[before.server.id]=False
                             now_playing[before.server.id]=None
                             song_names[before.server.id].clear()
-                            await bot.send_message(discord.Object(id=rq_channel[before.server.id]),"**Kurusaki left because there was no one inside `{}`**".format(before.voice.voice_channel))
+                            await bot.send_message(discord.Object(id=rq_channel[before.server.id]),"**MubbyTheBot left because there was no one inside `{}`**".format(before.voice.voice_channel))
 
 
 
@@ -174,7 +174,7 @@ async def play(con, *, url):
         if bot.is_voice_connected(con.message.server) == True:
             if player_status[con.message.server.id] == True:
                 song_names[con.message.server.id].append(url)
-                r = rq.Session().get('https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q={}&key=put your youtube token here'.format(url)).json()
+                r = rq.Session().get('https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q={}&key=AIzaSyDy4gizNmXYWykfUACzU_RsaHtKVvuZb9k'.format(url)).json()
                 await bot.send_message(con.message.channel, "**Song `{}` Queued**".format(r['items'][0]['snippet']['title']))
 
             if player_status[con.message.server.id] == False:
