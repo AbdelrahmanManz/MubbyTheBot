@@ -241,7 +241,7 @@ async def shuffle(con):
     i=3
     while(i<len(results)):
         print(results[i])
-        bot.loop.create_task(play2(con,results[i]))
+        await play2(con,results[i])
         i+=1            
         
 @bot.command(pass_context=True)
