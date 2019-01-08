@@ -203,9 +203,8 @@ async def shuffle(con):
     r = session.get('https://kworb.net/spotify/country/global_daily.html')
     results=re.findall(r'.+-.+', r.html.text)
     i=3
-    while(i<5):
+    while(i<len(results)):
         print(results[i])
-            """PLAY THE GIVEN SONG AND QUEUE IT IF THERE IS CURRENTLY SOGN PLAYING"""
         voice_status = bot.is_voice_connected(con.message.server)
         if voice_status == False:  # VOICE NOT CONNECTED
             if con.message.author.voice_channel == None:
