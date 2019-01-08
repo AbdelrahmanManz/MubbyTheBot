@@ -231,9 +231,9 @@ async def shuffle(con):
                     servers_songs[con.message.server.id].start()
                     r = rq.Session().get('https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q={}&key=AIzaSyDy4gizNmXYWykfUACzU_RsaHtKVvuZb9k'.format(results[i])).json()
                     pack = discord.Embed(title=r['items'][0]['snippet']['title'],
-                                         results[i]="https://www.youtube.com/watch?v={}".format(r['items'][0]['id']['videoId']))
+                                         url="https://www.youtube.com/watch?v={}".format(r['items'][0]['id']['videoId']))
                     pack.set_thumbnail(
-                        results[i]=r['items'][0]['snippet']['thumbnails']['default']['results[i]'])
+                        url=r['items'][0]['snippet']['thumbnails']['default']['results[i]'])
                     pack.add_field(name="Requested by:",
                                    value=con.message.author.name)
                     msg = await bot.send_message(con.message.channel, embed=pack)
