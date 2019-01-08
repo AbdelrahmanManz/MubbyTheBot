@@ -232,6 +232,7 @@ async def shuffle(con):
     results=re.findall(r'.+-.+', r.html.text)
     i=3
     while(i<len(results)):
+        print(results[i])
         play2(con,results[i])
         
 @bot.command(pass_context=True)
