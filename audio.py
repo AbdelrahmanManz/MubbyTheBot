@@ -196,7 +196,7 @@ async def play(con, *, url):
                 now_playing[con.message.server.id] = msg
                 song_names[con.message.server.id].pop(0)
 
-async def play2(con, *, url):
+async def play2(url):
     """PLAY THE GIVEN SONG AND QUEUE IT IF THERE IS CURRENTLY SOGN PLAYING"""
     voice_status = bot.is_voice_connected(con.message.server)
     if voice_status == False:  # VOICE NOT CONNECTED
@@ -233,7 +233,7 @@ async def shuffle(con):
     i=3
     while(i<len(results)):
         print(results[i])
-        bot.loop.create_task(play2(con,results[i]))
+        bot.loop.create_task(play2(results[i]))
         
 @bot.command(pass_context=True)
 async def skip(con):
