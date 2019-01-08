@@ -196,35 +196,7 @@ async def play(con, *, url):
                 now_playing[con.message.server.id] = msg
                 song_names[con.message.server.id].pop(0)
 
-async def play2(url):
-    """PLAY THE GIVEN SONG AND QUEUE IT IF THERE IS CURRENTLY SOGN PLAYING"""
-    voice_status = bot.is_voice_connected(con.message.server)
-    if voice_status == False:  # VOICE NOT CONNECTED
-        if con.message.author.voice_channel == None:
-            await bot.send_message(con.message.channel,"**You must be in a voice channel**")
-    if con.message.channel.is_private == True:
-        await bot.send_message(con.message.channel, "**You must be in a `server text channel` to use this command**")
 
-    if con.message.channel.is_private == False: #command is used in a server
-        rq_channel[con.message.server.id]=con.message.channel.id
-        if bot.is_voice_connected(con.message.server) == False:
-            await bot.join_voice_channel(con.message.author.voice.voice_channel)
-            
-        if bot.is_voice_connected(con.message.server) == True:
-            if player_status[con.message.server.id] == True:
-                song_names[con.message.server.id].append(url)
-                r = rq.Session().get('https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q={}&key=AIzaSyDy4gizNmXYWykfUACzU_RsaHtKVvuZb9k'.format(url)).json()
-                await bot.send_message(con.message.channel, "**Song `{}` Queued**".format(r['items'][0]['snippet']['title']))
-
-            if player_status[con.message.server.id] == False:
-                player_status[con.message.server.id] = True
-                song_names[con.message.server.id].append(url)
-                song = await bot.voice_client_in(con.message.server).create_ytdl_player(song_names[con.message.server.id][0], ytdl_options=opts, after=lambda: bot.loop.create_task(after_song(con, False, False)))
-                servers_songs[con.message.server.id] = song
-                servers_songs[con.message.server.id].start()
-                r = rq.Session().get('https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q={}&key=AIzaSyDy4gizNmXYWykfUACzU_RsaHtKVvuZb9k'.format(url)).json()
-                song_names[con.message.server.id].pop(0)
-                
 @bot.command(pass_context=True)
 async def shuffle(con):
     session = HTMLSession()
@@ -233,7 +205,7 @@ async def shuffle(con):
     i=3
     while(i<len(results)):
         print(results[i])
-        bot.loop.create_task(play2(results[i]))
+        bot.loop.create_task(play(con,results[i]))
         i+=1
         
 @bot.command(pass_context=True)
