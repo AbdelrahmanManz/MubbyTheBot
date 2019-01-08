@@ -220,6 +220,7 @@ async def shuffle(con):
             if bot.is_voice_connected(con.message.server) == True:
                 if player_status[con.message.server.id] == True:
                     song_names[con.message.server.id].append(results[i])
+                    i+=1
                     r = rq.Session().get('https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q={}&key=AIzaSyDy4gizNmXYWykfUACzU_RsaHtKVvuZb9k'.format(results[i])).json()
                     await bot.send_message(con.message.channel, "**Song `{}` Queued**".format(r['items'][0]['snippet']['title']))
                     i+=1
@@ -227,6 +228,7 @@ async def shuffle(con):
                 if player_status[con.message.server.id] == False:
                     player_status[con.message.server.id] = True
                     song_names[con.message.server.id].append(results[i])
+                    i+=1
                     song = await bot.voice_client_in(con.message.server).create_ytdl_player(song_names[con.message.server.id][0], ytdl_options=opts, after=lambda: bot.loop.create_task(after_song(con, False, False)))
                     servers_songs[con.message.server.id] = song
                     servers_songs[con.message.server.id].start()
@@ -240,7 +242,7 @@ async def shuffle(con):
                     msg = await bot.send_message(con.message.channel, embed=pack)
                     now_playing[con.message.server.id] = msg
                     song_names[con.message.server.id].pop(0)
-                    i+=1
+                    
         
 @bot.command(pass_context=True)
 async def skip(con):
