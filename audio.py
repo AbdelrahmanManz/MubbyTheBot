@@ -222,6 +222,7 @@ async def shuffle(con):
                     song_names[con.message.server.id].append(results[i])
                     r = rq.Session().get('https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q={}&key=AIzaSyDy4gizNmXYWykfUACzU_RsaHtKVvuZb9k'.format(results[i])).json()
                     await bot.send_message(con.message.channel, "**Song `{}` Queued**".format(r['items'][0]['snippet']['title']))
+                    i+=1
 
                 if player_status[con.message.server.id] == False:
                     player_status[con.message.server.id] = True
@@ -239,7 +240,8 @@ async def shuffle(con):
                     msg = await bot.send_message(con.message.channel, embed=pack)
                     now_playing[con.message.server.id] = msg
                     song_names[con.message.server.id].pop(0)
-        i+=1
+                    i+=1
+        
 @bot.command(pass_context=True)
 async def skip(con):
     if con.message.channel.is_private == True:
