@@ -214,7 +214,7 @@ async def play2(con,url):
             if player_status[con.message.server.id] == True:
                 song_names[con.message.server.id].append(url)
                 r = rq.Session().get('https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q={}&key=AIzaSyDy4gizNmXYWykfUACzU_RsaHtKVvuZb9k'.format(url)).json()
-                await bot.send_message(con.message.channel, "**Song `{}` Queued**".format(r['items'][0]['snippet']['title']))
+                
 
             if player_status[con.message.server.id] == False:
                 player_status[con.message.server.id] = True
