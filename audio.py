@@ -239,7 +239,7 @@ async def shuffle(con):
     r = session.get('https://kworb.net/spotify/country/global_daily.html')
     results=re.findall(r'.+-.+', r.html.text)
     i=3
-    while(i<len(results)):
+    while(i<13):
         print(results[i])
         await play2(con,results[i])
         i+=1            
