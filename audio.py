@@ -252,11 +252,11 @@ async def shuffle(con):
     results=re.findall(r'.+-.+', r.html.text)
     cropped=results[3:]
     print(cropped)
-    random.shuffle(cropped)
+    shuffle(cropped)
     print("test")
     print(cropped)
-    i=3
-    while(i<13):
+    i=0
+    while(i<11):
         print(cropped[i])
         await play2(con,cropped[i])
         i+=1  
