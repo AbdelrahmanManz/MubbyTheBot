@@ -235,7 +235,7 @@ async def play2(con,url):
                 song_names[con.message.server.id].pop(0)                
 
 @bot.command(pass_context=True)
-async def top(con):
+async def shuffle(con):
     session = HTMLSession()
     r = session.get('https://kworb.net/spotify/country/global_daily.html')
     results=re.findall(r'.+-.+', r.html.text)
@@ -245,22 +245,6 @@ async def top(con):
         await play2(con,results[i])
         i+=1            
 
-@bot.command(pass_context=True)
-async def shuffle(con):
-    session = HTMLSession()
-    r = session.get('https://kworb.net/spotify/country/global_daily.html')
-    results=re.findall(r'.+-.+', r.html.text)
-    cropped=results[3:]
-    print(cropped)
-    shuffle(cropped)
-    print("test")
-    print(cropped)
-    i=0
-    while(i<11):
-        print(cropped[i])
-        await play2(con,cropped[i])
-        i+=1  
-        
 @bot.command(pass_context=True)
 async def skip(con):
     if con.message.channel.is_private == True:
