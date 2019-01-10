@@ -7,6 +7,7 @@ import requests as rq
 import os
 from requests_html import HTMLSession
 import re
+from random import shuffle
 
 def get_prefix(bot, msg):
     """A callable Prefix for our bot. This could be edited to allow per server prefixes."""
@@ -234,7 +235,7 @@ async def play2(con,url):
                 song_names[con.message.server.id].pop(0)                
 
 @bot.command(pass_context=True)
-async def shuffle(con):
+async def top(con):
     session = HTMLSession()
     r = session.get('https://kworb.net/spotify/country/global_daily.html')
     results=re.findall(r'.+-.+', r.html.text)
@@ -243,6 +244,19 @@ async def shuffle(con):
         print(results[i])
         await play2(con,results[i])
         i+=1            
+
+@bot.command(pass_context=True)
+async def shuffle(con):
+    session = HTMLSession()
+    r = session.get('https://kworb.net/spotify/country/global_daily.html')
+    results=re.findall(r'.+-.+', r.html.text)
+    cropped=results[3:]
+    shuffle(cropped)
+    i=3
+    while(i<13):
+        print(cropped[i])
+        await play2(con,cropped[i])
+        i+=1  
         
 @bot.command(pass_context=True)
 async def skip(con):
