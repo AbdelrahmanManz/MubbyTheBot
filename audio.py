@@ -251,7 +251,10 @@ async def shuffle(con):
     r = session.get('https://kworb.net/spotify/country/global_daily.html')
     results=re.findall(r'.+-.+', r.html.text)
     cropped=results[3:]
+    print(cropped)
     random.shuffle(cropped)
+    print("test")
+    print(cropped)
     i=3
     while(i<13):
         print(cropped[i])
