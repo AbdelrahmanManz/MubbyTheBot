@@ -311,6 +311,11 @@ async def stop(con):
             await bot.send_message(con.message.channel, "**Mubby sends his regards**")
 
 @bot.command(pass_context=True)
+async def clear(con):
+    await queue_songs(con, False, True)
+    print('Cleared')
+    
+@bot.command(pass_context=True)
 async def pause(con):
     # COMMAND IS IN DM
     if con.message.channel.is_private == True:
