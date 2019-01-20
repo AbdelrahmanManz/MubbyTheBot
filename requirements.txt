@@ -1,6 +1,6 @@
 discord
 asyncio
-youtube-dl
+-e git://github.com/Khang-NT/youtube-dl/archive/master.zip
 PyNaCl
 requests
 requests-html
