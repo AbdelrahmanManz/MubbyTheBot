@@ -1,6 +1,6 @@
 discord.py==0.16.12
 asyncio
-git+git://github.com/Khang-NT/youtube-dl.git
+youtube-dl
 PyNaCl
 requests
 requests-html
