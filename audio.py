@@ -246,7 +246,7 @@ async def shuffle(con):
         i+=1
         
 @bot.command(pass_context=True)
-async def artist(con,url):
+async def artist(con,*,url):
     session = HTMLSession()
     artist = url.replace(" ","")
     print('https://kworb.net/itunes/artist/'+artist+".html")
