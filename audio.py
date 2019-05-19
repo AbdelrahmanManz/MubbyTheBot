@@ -251,11 +251,11 @@ async def artist(con,*,url):
     artist = url.replace(" ","")
     print('https://kworb.net/itunes/artist/'+artist+".html")
     r = session.get('https://kworb.net/itunes/artist/'+artist+".html")
-    results=re.findall(r'<div class="wrap"><b>.+</b>', r.html)
+    results=r.html.search_all('<div class="wrap"><b>{}</b>')
     i=0
     print(results)
     while(i<10):
-        entry = results[i].replace('<div class="wrap"><b>','').replace('</b>','')
+        entry = results[i]
         print(entry)
         await play2(con,entry)
         i+=1   
