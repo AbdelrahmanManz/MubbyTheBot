@@ -246,9 +246,10 @@ async def shuffle(con):
         i+=1
         
 @bot.command(pass_context=True)
-async def artist(con,artist):
+async def artist(con,url):
     session = HTMLSession()
-    artist = artist.replace(" ","")
+    artist = url.replace(" ","")
+    print('https://kworb.net/itunes/artist/'+artist+".html")
     r = session.get('https://kworb.net/itunes/artist/'+artist+".html")
     results=re.findall(r'<div class="wrap"><b>.+</b>', r.html.text)
     i=0
