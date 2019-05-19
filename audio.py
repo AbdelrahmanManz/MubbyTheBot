@@ -251,7 +251,7 @@ async def artist(con,*,url):
     artist = url.replace(" ","")
     print('https://kworb.net/itunes/artist/'+artist+".html")
     r = session.get('https://kworb.net/itunes/artist/'+artist+".html")
-    results=re.findall(r'<div class="wrap"><b>.+</b>', r.html.text)
+    results=re.findall(r'<div class="wrap"><b>.+</b>', r.html)
     i=0
     print(results)
     while(i<10):
