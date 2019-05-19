@@ -255,7 +255,7 @@ async def artist(con,*,url):
     i=0
     print(results)
     while(i<10):
-        entry = results[i][0]
+        entry = results[i][0].replace(":","")
         print(entry)
         await play2(con,entry)
         i+=1   
