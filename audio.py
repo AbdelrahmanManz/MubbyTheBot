@@ -243,8 +243,21 @@ async def shuffle(con):
     while(i<13):
         print(results[i])
         await play2(con,results[i])
-        i+=1            
-
+        i+=1
+        
+@bot.command(pass_context=True)
+async def artist(con,artist):
+    session = HTMLSession()
+    artist = artist.replace(" ","")
+    r = session.get('https://kworb.net/itunes/artist/'+artist+".html")
+    results=re.findall(r'<div class="wrap"><b>.+</b>', r.html.text)
+    i=3
+    while(i<13):
+        entry = results[i].replace('<div class="wrap"><b>','').replace('</b>','')
+        print(entry)
+        await play2(con,entry)
+        i+=1   
+        
 @bot.command(pass_context=True)
 async def skip(con):
     if con.message.channel.is_private == True:
