@@ -1,6 +1,6 @@
-discord.py
+discord.py==0.16.12
 asyncio
-youtube-dl
+youtube-dl==2019.06.21
 PyNaCl
 requests
 requests-html
