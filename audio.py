@@ -251,11 +251,11 @@ async def artist(con,*,url):
     artist = url.replace(" ","+")
     print('http://www.top50songs.info/artist.php?artist='+artist)
     r = session.get('http://www.top50songs.info/artist.php?artist='+artist)
-    results=r.html.search_all('>{}.{}</a>')
+    results=r.html.search_all('">{}. {}</a></li>')
     i=0
     print(results)
     while(i<10):
-        entry = results[i][0].replace(":","")
+        entry = url+" - "results[i][1]
         print(entry)
         await play2(con,entry)
         i+=1   
