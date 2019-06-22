@@ -248,10 +248,10 @@ async def shuffle(con):
 @bot.command(pass_context=True)
 async def artist(con,*,url):
     session = HTMLSession()
-    artist = url.replace(" ","")
-    print('https://kworb.net/itunes/artist/'+artist+".html")
-    r = session.get('https://kworb.net/itunes/artist/'+artist+".html")
-    results=r.html.search_all('<div class="wrap"><b>{}</b>')
+    artist = url.replace(" ","+")
+    print('http://www.top50songs.info/artist.php?artist='+artist)
+    r = session.get('http://www.top50songs.info/artist.php?artist='+artist)
+    results=r.html.search_all('>{}.{}</a>')
     i=0
     print(results)
     while(i<10):
