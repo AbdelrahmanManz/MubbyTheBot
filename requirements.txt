@@ -3,3 +3,6 @@ git+https://github.com/ytdl-org/youtube-dl
 asyncio
 requests
 requests-html
+PyNaCl
+google-api-python-client
+python-dotenv
