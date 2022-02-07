@@ -519,7 +519,7 @@ class MusicPlayer(commands.Cog, name='Music'):
                     emb = discord.Embed(
                         colour=self.random_color, title='queue')
                     emb.set_footer(
-                        text=f'Command used by {msg.author.name}', icon_url=msg.author.avatar_url)
+                        text=f'Command used by {msg.author.name}', icon_url=None)
                     for i in self.player[msg.guild.id]['queue']:
                         emb.add_field(
                             name=f"**{i['author'].author.name}**", value=i['title'], inline=False)
